@@ -61,7 +61,7 @@ public class MergeSort {
   }
 
   public static void main(String args[]) {
-    int[] test = { 5, 2, 7, 10, 3, 1, 6};
+    int[] test = { 5, 2, 7, 10, 3, 1, 6 };
 
     mergeSort(test, test.length);
     for(int element : test) {
@@ -80,3 +80,6 @@ public class MergeSort {
 - 따라서, 단계별 시간 복잡도 `O(n) * O(logn) = O(nlog n)`
 
 ![https://www.fun-coding.org/00_Images/mergesortcomplexity.png](https://www.fun-coding.org/00_Images/mergesortcomplexity.png)
+
+최소 단위까지 두 array로 half split 하고,  
+left, right array 요소를 차례차례 작은 것부터 새로운 array에 집어넣으며 merge 한다.

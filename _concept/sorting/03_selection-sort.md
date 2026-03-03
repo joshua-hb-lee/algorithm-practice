@@ -38,3 +38,9 @@ public class SelectionSort {
 
 - 반복문이 두 개 $O(n^2)$
     - 실제로 상세하게 계산하면, ${ n * (n - 1)}/{ 2 }$
+
+맨 첫번째부터 기준으로 `idxLowest`로 marking  
+오른 방향으로 반복하면서 `idxLowest` 기준값보다 작은 것이 있으면 index 교체 >> 제일 작은 것이 `idxLowest`가 되는 구조.  
+그리고 가장 첫번째로 교체
+
+이런 식으로 두번째 자리 이후 반복
