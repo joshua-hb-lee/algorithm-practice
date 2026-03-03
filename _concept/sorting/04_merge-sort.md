@@ -75,9 +75,9 @@ public class MergeSort {
     - 다음 그림에서 `n/2^2` 는 2단계 깊이라고 해보자.
     - 각 단계에 있는 하나의 노드 안의 리스트 길이는 `n/2^2` 가 된다.
     - 각 단계에는 `2^i` 개의 노드가 있다.
-- 따라서, 각 단계는 항상 `2^i * n / 2^i = O(n)`
-- 단계는 항상 `log2n` 개 만큼 만들어짐, 시간 복잡도는 결국 `O(log n)`, 2는 역시 상수이므로 삭제
-- 따라서, 단계별 시간 복잡도 `O(n) * O(logn) = O(nlog n)`
+- 따라서, 각 단계는 항상 `2^i * n / 2^i = O(n)` 작업을 진행
+- 단계(depth)는 항상 `log2n` 개 만큼 만들어짐, 시간 복잡도는 결국 `O(log n)`, 2는 역시 상수이므로 삭제
+- 따라서, 단계별 시간 복잡도 `O(n) * O(logn) = O(n * log n)`
 
 ![https://www.fun-coding.org/00_Images/mergesortcomplexity.png](https://www.fun-coding.org/00_Images/mergesortcomplexity.png)
 
