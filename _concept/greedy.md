@@ -8,3 +8,18 @@
 
 - 단점
   - 매순간의 최적을 가지고 계산을 수행 (최종 결과적으로는 최적이 아닐 수도 있다.)
+
+coin problem
+```java
+List<Integer> solve(List<Integer> coinList, int totalValue) {
+  coinList.sort(Comparator.reverseOrder());
+  List<Integer> results = new ArrayList<>();
+
+  coinList.stream().reduce(totalValue, (remainder, coin) -> {
+    results.add(remainder / coin);
+    return remainder % coin;
+  });
+
+  return results;
+}
+```
