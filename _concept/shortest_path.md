@@ -1,4 +1,4 @@
-# 최단 경로
+# Shortest Path Algorithm
 
 - 가중치 그래프(`Weighted Graph`)에서 간선의 가중치 합이 최소가 되도록 하는 경로
 
@@ -11,7 +11,14 @@
 - all pairs shortest paths  
   그래프 내 모든 노드 쌍에 대한 최단 경로 구하는 문제
 
-## Dijstra Algorithm
+## Algorithms
+
+- BFS
+- Dijkstra Algorithm
+- Bellman-Ford Algorithm
+- Floyd-Warshall Algorithm
+
+## Dijkstra Algorithm
 
 one of single source shortest path methods
 
@@ -23,6 +30,8 @@ public class Dijkstra {
    * - MinHeap for shortest path selection (PriorityQueue) 
    * - distance map
    * - target for calculation
+   * 
+   * you can replace [Edge] class with Map.
    *
    * @return
    */
