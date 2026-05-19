@@ -2,7 +2,7 @@
 
 - 가중치 그래프(`Weighted Graph`)에서 간선의 가중치 합이 최소가 되도록 하는 경로
 
-## 종류
+## :pushpin: Types of shortest path
 
 - single source - single destination  
   하나의 출발점과 하나의 도착점 사이의 최단 경로 문제
@@ -11,17 +11,18 @@
 - all pairs shortest paths  
   그래프 내 모든 노드 쌍에 대한 최단 경로 구하는 문제
 
-## Algorithms
+## :pushpin: Algorithms
 
 - BFS
 - Dijkstra Algorithm
 - Bellman-Ford Algorithm
 - Floyd-Warshall Algorithm
 
-## Dijkstra Algorithm
+## :pushpin: Dijkstra Algorithm
 
 one of single source shortest path methods
 
+- java
 ```java
 public class Dijkstra {
 
@@ -100,5 +101,52 @@ public class Dijkstra {
     });
   }
 }
-
 ```
+
+- python
+```python
+import heapq
+
+mygraph = {
+    'A': {'B':8, 'C':1, 'D':2},
+    'B': {},
+    'C': {'B':5, 'D':2},
+    'D': {'E':3, 'F':5},
+    'E': {'F':1},
+    'F': {'A':5}
+}
+
+# distances: final result of the shortest path to each node from start node.
+#   First, distances will be initiallized with all infinity except start node (0)
+#   ex) start from A node > {'A':0, 'B':inf, 'C':inf, 'D':inf, ...}
+def dijkstra(graph, start):
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+    
+    queue = []
+    heapq.heappush(queue, [distances[start], start])
+    
+    while queue:
+        current_distance, current_node = heapq.heappop(queue)
+        
+        # in case the distance of node is already less then distance in queue, it can be skipped
+        if distances[current_node] < current_distance:
+            continue
+        
+        for adjacent, weight in graph[current_node].items():
+            distance = current_distance + weight
+            
+            if distance < distances[adjacent]:
+                distances[adjacent] = distance
+                heapq.heappush(queue, [distance, adjacent])
+
+    return distances
+
+result = dijkstra(mygraph, 'A')
+```
+
+### Complexity
+
+Time complexity: $O((V + E)log{V})$ with **priority queue (min heap)**  
+Space complexity: $O(V)$  
+($V$: the number of vertices, $E$: the number of edges in graph)

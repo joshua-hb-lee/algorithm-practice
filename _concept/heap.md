@@ -2,12 +2,12 @@
 
 메모리에 있는 Heap이 아니다...
 
-- 최대값, 최소값을 빠르게 Searching하기 위한 [완전 이진 트리](https://codingdog.tistory.com/entry/%EC%99%84%EC%A0%84%EC%9D%B4%EC%A7%84%ED%8A%B8%EB%A6%AC-vs-%ED%8F%AC%ED%99%94%EC%9D%B4%EC%A7%84%ED%8A%B8%EB%A6%AC-%EC%9D%B4-%EB%91%98%EC%97%90-%EB%8C%80%ED%95%B4-%EC%95%8C%EC%95%84%EB%B4%85%EC%8B%9C%EB%8B%A4)(Complete Binary Tree)
-- 배열에서 최대값 혹은 최소값을 구하려면 `O(n)` 시간복잡도 발생
-- 힙은 `O(logn)` 발생, 배열보다 효율적
-- 우선순위 큐(PriorityQueue) 구현에 쓰임
+- [Complete Binary Tree](https://codingdog.tistory.com/entry/%EC%99%84%EC%A0%84%EC%9D%B4%EC%A7%84%ED%8A%B8%EB%A6%AC-vs-%ED%8F%AC%ED%99%94%EC%9D%B4%EC%A7%84%ED%8A%B8%EB%A6%AC-%EC%9D%B4-%EB%91%98%EC%97%90-%EB%8C%80%ED%95%B4-%EC%95%8C%EC%95%84%EB%B4%85%EC%8B%9C%EB%8B%A4) with fast searching the max or min value
+- The time complexity of array = $O(n)$
+- heap is $O(logn)$, more effiecent than array
+- heap is used to implement **PriorityQueue**
 
-## 이진 탐색 트리와 공통점, 차이점
+## :pushpin: 이진 탐색 트리와 공통점, 차이점
 
 - 공통점
   - 이진 트리에 기반(부모노드에 자식노드가 2개)
@@ -16,7 +16,7 @@
   - 이진 탐색 트리는 `왼쪽노드 < 부모노드 < 오른쪽노드` 순으로 크기
   - 힙은 최대값, 최소값 검색 / 이진 탐색 트리는 탐색
 
-## Heap 구현
+## :pushpin: Heap Implementation
 
 ```java
 public class Heap {
@@ -124,6 +124,105 @@ public class Heap {
   }
 }
 ```
+
+```python
+# [[1, 'a'], [2, 'b'], [4, 'c'], [6, 'd'], [7, 'g'], [8, 'f'], [9, 'z']]
+class Heap():
+    def __init__(self) -> None:
+        self.array = []
+        self.size = 0
+    
+    def swapNode(self, x_idx, y_idx):
+        tmp = self.array[y_idx]
+        self.array[y_idx] = self.array[x_idx]
+        self.array[x_idx] = tmp
+        
+        
+    def minHeapifyFromRoot(self):
+        if (self.size == 0):
+            return
+        
+        # start from the root
+        index = 0
+        
+        # doing loop until the index's node has any children
+        while self.size > index * 2 + 1:
+            left = 2 * index + 1
+            right = 2 * index + 2
+            
+            # if right children does not exist, left is used
+            if right >= self.size:
+                min_idx = left
+            else:
+                # or compare left with right and decide the smaller one
+                min_idx = right if self.array[left][0] > self.array[right][0] else left
+            
+            # if minheap is valid, just end the process
+            if self.array[index][0] > self.array[min_idx][0]:
+                return
+            
+            # swap
+            self.swapNode(index, min_idx)
+            index = min_idx
+    
+    def minHeapifyFromTheLast(self):
+        if (self.size == 0):
+            return
+        
+        # start from the last one
+        index = self.size - 1 # last one
+        
+        # doing loop until reaching the root
+        while index > 0:
+            parent_idx = int((index - 1) / 2)
+            # if minheap is valid, just end the process
+            if self.array[index][0] > self.array[parent_idx][0]:
+                return
+            
+            # swap
+            self.swapNode(index, parent_idx)
+            index = parent_idx
+    
+    def append(self, element):
+        self.array.append(element)
+        self.size += 1
+        
+        self.minHeapifyFromTheLast()
+        print(self.array)
+    
+    def minpop(self):
+        if (self.size == 0):
+            return -1
+        
+        min_value = self.array[0]
+        
+        self.array[0] = self.array[self.size - 1]
+        self.size -= 1
+        
+        self.minHeapifyFromRoot()
+        
+        return min_value
+
+    def __str__(self):
+        return f"{self.array})"
+    
+if __name__ == "__main__":
+    heap = Heap()
+    heap.append([5, 'a'])
+    heap.append([3, 'c'])
+    heap.append([11, 'f'])
+    heap.append([21, 'b'])
+    heap.append([7, 'v'])
+    heap.append([15, 'g'])
+    
+    print(heap.minpop())
+    print(heap.minpop())
+    print(heap.minpop())
+    print(heap.minpop())
+    print(heap.minpop())
+    print(heap.minpop())
+```
+
 - `insert`
   - 완전 이진 트리 순서대로 맨 마지막 Node에 새로운 데이터 insert
   - 마지막 insert된 노드부터 부모 노드와 비교를 통해 swap
