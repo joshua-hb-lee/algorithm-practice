@@ -1,7 +1,7 @@
 """
 169. Majority Element
 Boyer-Moore Majority Vote Algorithm
-
+https://leetcode.com/problems/majority-element/?envType=study-plan-v2&envId=top-interview-150
 if count is zero, then candidate is updated
 """
 from typing import List
